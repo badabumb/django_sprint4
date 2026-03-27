@@ -101,6 +101,7 @@ def create_post(request):
     if form.is_valid():
         post = form.save(commit=False)
         post.author = request.user
+        post.pub_date = timezone.now()
         post.save()
         return redirect('blog:profile', username=request.user.username)
     return render(request, 'blog/create.html', {'form': form})
